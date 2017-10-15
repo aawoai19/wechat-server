@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>二八轮动分析</title>
+    <link href="/static/layout.css" rel="stylesheet" type="text/css">
+    <script src="/static/jquery.js"></script>
+    <script src="/static/jquery.flot.js"></script>
+    <script src="/static/jquery.flot.crosshair.js"></script>
+</head>
+<body>
+<div id="placeholder2"></div>
+<p></p>
+<div id="placeholder"></div>
+
+<script type="text/javascript">
+    var plot;
+    var plot2;
+    $(function () {
+        $(this).css("background-image","url(/static/background.jpg)");
+        $("#placeholder").height($("#placeholder").width()/2)
+        $.getJSON('/untitled1/shenhu300_list/',function (ret) {
+            shenhu300 = ret
+            var d1 = [];
+            for (var i = 0; i < 20; i += 1)
+                d1.push([i,shenhu300[i]]);
+
+            var d2 = [];
+            for (var i = 0;i<20;i += 1)
+                d2.push([i,shenhu300[i+20]]);
+
+            var d3 = [];
+            for (var i = 0;i<20;i += 1)
+                d3.push([i,shenhu300[i+40]])
+
+            var d4 = [];
+            for (var i = 0;i<20;i += 1)
+                d4.push([i,shenhu300[i+60]])
+//
+//    // a null signifies separate line segments
+//    var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
+
+            plot = $.plot($("#placeholder"),
+                [
+                    {
+                        data:d1,
+
+                        lines:{show:true}
+                    },
+                    {
+                        data:d2,
+
+                        lines:{show:true}
+                    },
+                    {
+                        data:d3,
+                        lines:{show:true}
+                    },
+                    {
+                        data:d4,
+                        lines:{show:true}
+                    }
+                ],
+                {
+                    crosshair: { mode: "y" },
+                    grid: { hoverable: true, autoHighlight: false },
+                }
+            );
+            plot2 = $.plot($("#placeholder2"),
+                [
+                    {
+                        data:d1,
+                        label:"深沪300指数增幅（20日）= "+shenhu300[19]+"%",
+                        lines:{show:false}
+                    },
+                    {
+                        data:d2,
+                        label:"创业板指数增幅（20日）= "+shenhu300[39]+"%",
+                        lines:{show:false}
+                    },
+                    {
+                        data:d3,
+                        label:"上证50指数增幅（20日）= "+shenhu300[59]+"%",
+                        lines:{show:false}
+                    },
+                    {
+                        data:d4,
+                        label:"中证500指数增幅（20日）= "+shenhu300[79]+"%",
+                        lines:{show:false}
+                    }
+                ],
+                {
+                    crosshair: { mode: "x" },
+                    grid: { hoverable: true, autoHighlight: false,show:false },
+                }
+            );
+
+
+
+        });
+    })
+
+</script>
+</body>
+</html>

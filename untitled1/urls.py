@@ -1,0 +1,27 @@
+"""untitled1 URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
+from django.conf.urls import url
+from django.contrib import admin
+from lundong import views as lundong_views
+from wechat import views as wechat_views
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^untitled1/everyday_change/$',lundong_views.everyday_change,name='change'),
+    url(r'^untitled1/lundong/$',lundong_views.lundong,name='lundong'),
+    url(r'^untitled1/shenhu300_list/$',lundong_views.shenhu300_list,name='shenhu300'),
+    url(r'^untitled1/wechat/$',wechat_views.index,name='wechat'),
+]
